@@ -3,17 +3,12 @@
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
-  Building2,
   ExternalLink,
-  GraduationCap,
-  Globe,
   Leaf,
   Lightbulb,
   Plug,
   Power,
   Snowflake,
-  UserCog,
-  Users,
   Wallet,
 } from 'lucide-react'
 import { content } from '@/lib/content'
@@ -22,7 +17,6 @@ import { FigureFooter, Photo, Section, Tag } from './ui'
 
 const wordIcons = [Plug, Leaf, Wallet]
 const exampleIcons = [Lightbulb, Snowflake, Power]
-const affectedIcons = [UserCog, GraduationCap, Users, Globe]
 
 function Odd7Card() {
   const { odd7 } = content.enjeu
@@ -121,38 +115,6 @@ function ProblemBlock() {
   )
 }
 
-function AffectedBlock() {
-  const { affected } = content.enjeu
-  return (
-    <div>
-      <Reveal>
-        <h3 className="text-3xl font-extrabold tracking-tight lg:text-4xl">{affected.title}</h3>
-      </Reveal>
-      <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {affected.items.map((item, index) => {
-          const Icon = affectedIcons[index] ?? Building2
-          return (
-            <motion.li
-              key={item.label}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.55, delay: index * 0.1 }}
-              className="glass rounded-3xl p-6"
-            >
-              <span className="flex size-12 items-center justify-center rounded-2xl bg-navy text-paper">
-                <Icon className="size-6" aria-hidden="true" />
-              </span>
-              <p className="mt-4 text-xl font-extrabold leading-snug">{item.label}</p>
-              <p className="mt-1 text-base text-ink-soft">{item.text}</p>
-            </motion.li>
-          )
-        })}
-      </ul>
-    </div>
-  )
-}
-
 function TargetAndFigures() {
   const { target } = content.enjeu
   const targetUrl = content.sources[target.sourceKey as 'un_goal7'].url
@@ -189,7 +151,6 @@ export function SectionEnjeu() {
     <Section id={enjeu.id} number={enjeu.number} title={enjeu.title} intro={enjeu.intro} sourceKeys={enjeu.sourceKeys}>
       <Odd7Card />
       <ProblemBlock />
-      <AffectedBlock />
       <TargetAndFigures />
     </Section>
   )

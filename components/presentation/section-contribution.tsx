@@ -3,16 +3,11 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
-  Banknote,
   Cpu,
   EyeOff,
-  Handshake,
   Leaf,
-  Lightbulb,
-  Radio,
   TriangleAlert,
   UserCheck,
-  Wrench,
   type LucideIcon,
 } from 'lucide-react'
 import { content } from '@/lib/content'
@@ -28,7 +23,6 @@ const flowStyles = [
   'bg-[#e3edff] text-tag-blue',
   'bg-synergy-soft text-synergy',
 ]
-const requirementIcons: LucideIcon[] = [Radio, Wrench, Banknote, Handshake, UserCheck]
 
 function FlowDiagram() {
   const { flow, flowTitle, flowNote } = content.contribution
@@ -145,41 +139,6 @@ function StepsExplorer() {
   )
 }
 
-function FlipCard({ icon: Icon, label, front, back }: { icon: LucideIcon; label: string; front: string; back: string }) {
-  const [flipped, setFlipped] = useState(false)
-  return (
-    <button
-      type="button"
-      onClick={() => setFlipped((value) => !value)}
-      aria-pressed={flipped}
-      className="group h-64 w-full text-left [perspective:1100px]"
-    >
-      <span
-        className={cn(
-          'relative block size-full transition-transform duration-700 [transform-style:preserve-3d]',
-          flipped && '[transform:rotateY(180deg)]',
-        )}
-      >
-        <span className="glass absolute inset-0 flex flex-col rounded-3xl p-6 [backface-visibility:hidden]">
-          <span className="flex size-14 items-center justify-center rounded-2xl bg-sun text-navy">
-            <Icon className="size-7" aria-hidden="true" />
-          </span>
-          <span className="mt-4 text-2xl font-extrabold">{label}</span>
-          <span className="mt-1 text-lg text-ink-soft">{front}</span>
-          <span className="mt-auto text-sm font-bold text-navy underline decoration-sun decoration-2 underline-offset-4">
-            {content.ui.flipHint}
-          </span>
-        </span>
-        <span className="absolute inset-0 flex flex-col rounded-3xl bg-navy p-6 text-paper [backface-visibility:hidden] [transform:rotateY(180deg)]">
-          <span className="text-sm font-extrabold uppercase tracking-[0.16em] text-sun">{label}</span>
-          <span className="mt-3 text-lg leading-relaxed">{back}</span>
-          <span className="mt-auto text-sm font-bold text-sun">{content.ui.flipBack}</span>
-        </span>
-      </span>
-    </button>
-  )
-}
-
 export function SectionContribution() {
   const c = content.contribution
   const meterUrl = content.sources[c.meterPhoto.creditKey as 'photo_meter'].url
@@ -206,57 +165,17 @@ export function SectionContribution() {
         </Reveal>
       </div>
 
-      <div>
-        <Reveal>
-          <h3 className="text-3xl font-extrabold tracking-tight lg:text-4xl">{c.requirementsTitle}</h3>
-        </Reveal>
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {c.requirements.map((item, index) => (
-            <motion.li
-              key={item.label}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.55, delay: index * 0.09 }}
-            >
-              <FlipCard icon={requirementIcons[index]} label={item.label} front={item.front} back={item.back} />
-            </motion.li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="grid gap-8 lg:grid-cols-2">
-        <Reveal>
-          <aside className="flex h-full gap-5 rounded-[2rem] border-2 border-sun bg-sun-soft p-7 sm:p-9">
-            <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-sun text-navy">
-              <TriangleAlert className="size-7" aria-hidden="true" />
-            </span>
-            <div>
-              <p className="text-sm font-extrabold uppercase tracking-[0.16em]">{c.warning.title}</p>
-              <p className="mt-2 text-2xl font-extrabold leading-snug lg:text-3xl">{c.warning.text}</p>
-            </div>
-          </aside>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <aside className="glass h-full rounded-[2rem] p-7 sm:p-9">
-            <div className="flex items-center gap-3">
-              <span className="flex size-12 items-center justify-center rounded-2xl bg-navy text-paper">
-                <Lightbulb className="size-6" aria-hidden="true" />
-              </span>
-              <h3 className="text-2xl font-extrabold">{c.alternative.title}</h3>
-            </div>
-            <p className="mt-4 text-lg text-ink-soft">{c.alternative.text}</p>
-            <ul className="mt-3 flex flex-wrap gap-2">
-              {c.alternative.items.map((item) => (
-                <li key={item} className="rounded-full bg-sun-soft px-4 py-2 text-base font-bold">
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-4 text-lg font-semibold leading-relaxed">{c.alternative.note}</p>
-          </aside>
-        </Reveal>
-      </div>
+      <Reveal>
+        <aside className="flex gap-5 rounded-[2rem] border-2 border-sun bg-sun-soft p-7 sm:p-9">
+          <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-sun text-navy">
+            <TriangleAlert className="size-7" aria-hidden="true" />
+          </span>
+          <div>
+            <p className="text-sm font-extrabold uppercase tracking-[0.16em]">{c.warning.title}</p>
+            <p className="mt-2 text-2xl font-extrabold leading-snug lg:text-3xl">{c.warning.text}</p>
+          </div>
+        </aside>
+      </Reveal>
     </Section>
   )
 }

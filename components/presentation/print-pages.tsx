@@ -80,16 +80,6 @@ function PageEnjeu() {
               ))}
             </ul>
           </Box>
-          <Box>
-            <Heading>{e.affected.title}</Heading>
-            <ul className="grid grid-cols-2 gap-1.5">
-              {e.affected.items.map((item) => (
-                <li key={item.label}>
-                  <strong>{item.label}</strong> · {item.text}
-                </li>
-              ))}
-            </ul>
-          </Box>
         </div>
 
         <div className="flex flex-col gap-3">
@@ -171,26 +161,9 @@ function PageContribution() {
           </ol>
         </div>
 
-        <div className="grid min-h-0 flex-1 grid-cols-[1.3fr_1fr_0.7fr] gap-3">
-          <Box>
-            <Heading>{c.requirementsTitle}</Heading>
-            <ul className="flex flex-col gap-1">
-              {c.requirements.map((item) => (
-                <li key={item.label}>
-                  <strong>{item.label}</strong> · {item.back}
-                </li>
-              ))}
-            </ul>
-          </Box>
-          <div className="flex flex-col gap-3">
-            <div className="rounded-2xl border-2 border-sun bg-sun-soft p-3 font-extrabold">{c.warning.text}</div>
-            <Box className="flex-1">
-              <Heading>{c.alternative.title}</Heading>
-              <p>
-                {c.alternative.text} {c.alternative.items.join(', ')}.
-              </p>
-              <p className="mt-1 font-semibold">{c.alternative.note}</p>
-            </Box>
+        <div className="grid min-h-0 flex-1 grid-cols-[1.6fr_0.8fr] gap-3">
+          <div className="flex flex-col justify-center rounded-2xl border-2 border-sun bg-sun-soft p-4 text-[16px] font-extrabold">
+            {c.warning.text}
           </div>
           <div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -274,7 +247,6 @@ function PageInteractions() {
 
 function PageVerification() {
   const v = content.verification
-  const change = Math.round(((v.chart.before.value - v.chart.after.value) / v.chart.before.value) * 100)
   return (
     <Page number={v.number} title={v.title} sourceKeys={v.sourceKeys}>
       <div className="flex h-full flex-col gap-3 text-[12px] leading-snug">
@@ -296,54 +268,14 @@ function PageVerification() {
           </div>
         </div>
 
-        <div className="grid min-h-0 flex-1 grid-cols-[0.8fr_1.2fr] gap-3">
-          <Box>
-            <div className="flex items-center justify-between">
-              <Heading>{v.chart.title}</Heading>
-              <Tag kind="hoped" className="px-2 py-0.5 text-[10px]" />
-            </div>
-            <p className="rounded-lg bg-tension-soft px-2 py-1 font-extrabold text-tension">{v.chart.label}</p>
-            <div className="mt-2 flex h-24 items-end justify-center gap-6 border-b-2 border-navy/20">
-              <div className="flex w-14 flex-col items-center">
-                <span className="font-extrabold">{v.chart.before.value}</span>
-                <div className="w-full rounded-t-lg bg-navy/80" style={{ height: `${v.chart.before.value * 0.7}%` }} />
-              </div>
-              <div className="flex w-14 flex-col items-center">
-                <span className="font-extrabold">{v.chart.after.value}</span>
-                <div className="w-full rounded-t-lg bg-synergy" style={{ height: `${v.chart.after.value * 0.7}%` }} />
-              </div>
-            </div>
-            <div className="flex justify-center gap-6 font-extrabold">
-              <span className="w-14 text-center">{v.chart.before.label}</span>
-              <span className="w-14 text-center">{v.chart.after.label}</span>
-            </div>
-            <p className="mt-1 text-[10.5px] text-ink-soft">
-              {v.chart.unit} · écart : −{change} % · {v.chart.stamp}
-            </p>
-            <MiniFigure data={v.chart.figure} />
-          </Box>
-
-          <div className="grid grid-cols-2 gap-3">
-            <Box>
-              <Heading>{v.official.title}</Heading>
-              <p className="rounded-lg bg-[#efe6ff] p-2">
-                <strong>{v.official.officialLabel}.</strong> {v.official.official}
-              </p>
-              <p className="mt-1.5 rounded-lg bg-sun-soft p-2">
-                <strong>{v.official.projectLabel}.</strong> {v.official.project}
-              </p>
-              <MiniFigure data={v.official.figure} />
-            </Box>
-            <Box>
-              <Heading>{v.limits.title}</Heading>
-              <ul className="flex list-disc flex-col gap-1.5 pl-4">
-                {v.limits.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </Box>
-          </div>
-        </div>
+        <Box className="min-h-0 flex-1">
+          <Heading>{v.limits.title}</Heading>
+          <ul className="flex list-disc flex-col gap-1.5 pl-4 text-[13px]">
+            {v.limits.items.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </Box>
 
         <div className="rounded-2xl bg-gradient-to-br from-sun to-[#ffe9a0] px-5 py-3">
           <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-navy/70">{v.conclusionLabel}</p>
