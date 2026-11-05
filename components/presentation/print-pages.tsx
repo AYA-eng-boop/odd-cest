@@ -125,16 +125,6 @@ function PageEnjeu() {
             <p className="mt-1">{e.target.simple}</p>
             <MiniFigure data={e.target.figure} />
           </Box>
-          <Box>
-            <div className="flex items-center justify-between">
-              <Heading>{e.globalFigure.title}</Heading>
-              <Tag kind="observed" className="px-2 py-0.5 text-[10px]" />
-            </div>
-            <p className="text-2xl font-extrabold text-tag-blue">X XXX XXX</p>
-            <p className="font-bold">{e.globalFigure.label}</p>
-            <p className="mt-1 font-bold text-tension">{e.globalFigure.placeholder}</p>
-            <MiniFigure data={e.globalFigure.figure} />
-          </Box>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={e.photo.src || '/placeholder.svg'} alt={e.photo.alt} className="h-28 w-full rounded-2xl object-cover" />
           <p className="-mt-2 text-[9.5px] text-ink-soft">{e.photo.credit}</p>

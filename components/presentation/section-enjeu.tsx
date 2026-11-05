@@ -18,7 +18,6 @@ import {
 } from 'lucide-react'
 import { content } from '@/lib/content'
 import { Reveal } from './reveal'
-import { CountUp } from './count-up'
 import { FigureFooter, Photo, Section, Tag } from './ui'
 
 const wordIcons = [Plug, Leaf, Wallet]
@@ -155,10 +154,10 @@ function AffectedBlock() {
 }
 
 function TargetAndFigures() {
-  const { target, globalFigure } = content.enjeu
+  const { target } = content.enjeu
   const targetUrl = content.sources[target.sourceKey as 'un_goal7'].url
   return (
-    <div className="grid gap-8 lg:grid-cols-[1.25fr_1fr]">
+    <div className="grid gap-8">
       <Reveal>
         <article className="glass h-full rounded-[2rem] p-7 sm:p-10">
           <div className="flex flex-wrap items-center gap-3">
@@ -178,39 +177,6 @@ function TargetAndFigures() {
             <ExternalLink className="size-4" aria-hidden="true" />
           </a>
           <FigureFooter data={target.figure} />
-        </article>
-      </Reveal>
-      <Reveal delay={0.12}>
-        <article className="glass flex h-full flex-col rounded-[2rem] p-7 sm:p-10">
-          <div className="flex items-center justify-between gap-3">
-            <h3 className="text-xl font-extrabold">{globalFigure.title}</h3>
-            <Tag kind="observed" />
-          </div>
-          <div className="relative mt-8 overflow-hidden rounded-3xl bg-[#e3edff] px-6 py-8 text-center">
-            <p
-              className="text-6xl font-extrabold tracking-tight text-tag-blue lg:text-7xl"
-              aria-label={globalFigure.value === null ? 'Valeur à vérifier' : undefined}
-            >
-              {globalFigure.value === null ? (
-                <motion.span
-                  animate={{ opacity: [0.35, 1, 0.35] }}
-                  transition={{ duration: 2.2, repeat: Infinity }}
-                  aria-hidden="true"
-                >
-                  X XXX XXX
-                </motion.span>
-              ) : (
-                <CountUp value={globalFigure.value} />
-              )}
-            </p>
-            <p className="mt-2 text-lg font-bold text-navy">
-              {globalFigure.label} {globalFigure.unit ? `(${globalFigure.unit})` : ''}
-            </p>
-          </div>
-          <p className="mt-5 rounded-2xl border-2 border-dashed border-tension/60 bg-tension-soft p-4 text-base font-bold text-tension">
-            {globalFigure.placeholder}
-          </p>
-          <FigureFooter data={globalFigure.figure} className="mt-auto" />
         </article>
       </Reveal>
     </div>
