@@ -1,5 +1,5 @@
-import { OddsPresentation } from '@/components/odds-presentation'
+import { Presentation } from '@/components/presentation/presentation'
 
 export default function Page() {
-  return <OddsPresentation />
+  return <Presentation />
 }
