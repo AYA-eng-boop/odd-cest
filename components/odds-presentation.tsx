@@ -39,7 +39,6 @@ const presentationContent = {
     noMeasurement: '[À VÉRIFIER] · aucune mesure de terrain',
     notEndorsed: 'Support pédagogique non approuvé par l’ONU.',
     source: 'Sources',
-    photoCredit: 'Photo illustrative · Unsplash, licence Unsplash · photo ID 1509391366360-2e959784a276',
     sourcePhoto: 'Photographie Unsplash',
     officialVisual: 'Repère ODD 7 · couleur officielle ONU',
     proposed: 'Proposition à tester',
@@ -191,9 +190,7 @@ function SourceFooter({ caption }: { caption: string }) {
   return (
     <footer className="source-footer">
       <p>{caption}</p>
-      <p>
-        {presentationContent.ui.notEndorsed} {presentationContent.ui.photoCredit}
-      </p>
+      <p>{presentationContent.ui.notEndorsed}</p>
     </footer>
   )
 }
@@ -486,7 +483,11 @@ export function OddsPresentation() {
 
   const navigateTo = useCallback((index: number) => {
     const safeIndex = Math.max(0, Math.min(index, presentationContent.slides.length - 1))
-    sectionRefs.current[safeIndex]?.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' })
+    const root = mainRef.current
+    const section = sectionRefs.current[safeIndex]
+    if (!root || !section) return
+    const top = section.getBoundingClientRect().top - root.getBoundingClientRect().top + root.scrollTop
+    root.scrollTo({ top, behavior: prefersReducedMotion ? 'auto' : 'smooth' })
   }, [prefersReducedMotion])
 
   useEffect(() => {
